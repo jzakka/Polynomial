@@ -1,6 +1,7 @@
 package org.example;
 
-public class States {
+public class Progress {
+    private int idx = 0;
     private long res = 0l;
     private long prev = 0l;
     private char operator = '+';
@@ -8,10 +9,6 @@ public class States {
 
     public long getRes() {
         return res;
-    }
-
-    public char getOperator() {
-        return operator;
     }
 
     public void setOperator(char operator) {
@@ -24,6 +21,18 @@ public class States {
 
     public void resetOperand() {
         setOperand(0);
+    }
+
+    public void moveNext(){
+        idx++;
+    }
+
+    public void jump(int dest){
+        idx = dest;
+    }
+
+    public int getIdx() {
+        return idx;
     }
 
     public void appendDigit(char letter) {

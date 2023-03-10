@@ -1,16 +1,16 @@
 package org.example;
 
 public class Evaluator {
-    States currentStatus;
-    ByteWorker byteWorker;
+    Progress currentStatus;
+    Mediator byteWorker;
     public Evaluator() {
-        this.currentStatus  = new States();;
+        this.currentStatus  = new Progress();;
     }
 
     public long eval(String exp) {
-        byteWorker = new ByteWorker(exp.replaceAll(" ", ""));
+        byteWorker = new Mediator(exp.replaceAll(" ", ""), currentStatus);
         while (byteWorker.inWorkPlace()) {
-            byteWorker.makeOperand(currentStatus);
+            byteWorker.work();
         }
         currentStatus.calculate();
         return currentStatus.getRes();

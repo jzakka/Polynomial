@@ -2,9 +2,7 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        Integer i = 10;
-        callByRef(i);
-        System.out.println(i);
+        System.out.println(String.valueOf('1').matches("\\d"));
     }
 
     public static void callByRef(Integer integer){
