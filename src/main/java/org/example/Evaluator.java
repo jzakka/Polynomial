@@ -16,29 +16,27 @@ public class Evaluator {
 
     public long eval() {
         int i = 0;
-        StringBuilder numStr = new StringBuilder();
+        long operand = 0;
         while (i < exp.length()) {
             char letter = exp.charAt(i);
             if (Character.isDigit(letter)) {
-                numStr.append(exp.charAt(i));
-            } else if(letter == '('){
-                Long pathCalced = new Evaluator(exp.substring(i + 1, exp.lastIndexOf(")"))).eval();
-                numStr = new StringBuilder(pathCalced.toString());
+                operand *= 10;
+                operand += exp.charAt(i)-'0';
+            } else if (letter == '(') {
+                operand= new Evaluator(exp.substring(i + 1, exp.lastIndexOf(")"))).eval();
                 i = exp.lastIndexOf(")");
-            }
-            else {
-                calculate(numStr);
+            } else {
+                calculate(operand);
                 prevOp = letter;
-                numStr = new StringBuilder();
+                operand = 0;
             }
             i++;
         }
-        calculate(numStr);
+        calculate(operand);
         return res;
     }
 
-    private void calculate(StringBuilder numStr) {
-        long number = Long.parseLong(numStr.toString());
+    private void calculate(long number) {
         switch (prevOp) {
             case '+':
                 res += number;
