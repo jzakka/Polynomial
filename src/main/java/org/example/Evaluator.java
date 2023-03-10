@@ -12,7 +12,7 @@ public class Evaluator {
         while (byteWorker.inWorkPlace()) {
             byteWorker.makeOperand(currentStatus);
         }
-        Calculator.calculate(currentStatus);
+        currentStatus.calculate();
         return currentStatus.getRes();
     }
 }

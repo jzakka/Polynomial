@@ -16,7 +16,7 @@ public class ByteWorker{
             states.setOperand(calculateParenthesis());
             jumpToEndOfParenthesis();
         } else {
-            Calculator.calculate(states);
+            states.calculate();
             states.setOperator(letter);
             states.resetOperand();
         }

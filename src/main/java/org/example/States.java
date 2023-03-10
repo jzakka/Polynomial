@@ -18,10 +18,6 @@ public class States {
         this.operator = operator;
     }
 
-    public long getOperand() {
-        return operand;
-    }
-
     public void setOperand(long operand) {
         this.operand = operand;
     }
@@ -48,5 +44,21 @@ public class States {
     public void multiply(){
         res = res - prev + prev * operand;
         prev *= operand;
+    }
+
+    public void calculate() {
+        switch (operator) {
+            case '+':
+                add();
+                break;
+            case '-':
+                sub();
+                break;
+            case '*':
+                multiply();
+                break;
+            default:
+                throw new RuntimeException();
+        }
     }
 }
