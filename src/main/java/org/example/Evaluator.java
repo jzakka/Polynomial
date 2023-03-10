@@ -1,14 +1,10 @@
 package org.example;
 
-import java.util.Arrays;
-
 public class Evaluator {
     String exp;
-    char prevOp;
     States currentStatus;
     public Evaluator(String exp) {
         this.exp = exp.replaceAll(" ", "");
-        this.prevOp = '+';
         this.currentStatus  = new States();;
     }
 
@@ -24,13 +20,15 @@ public class Evaluator {
                 operand= new Evaluator(exp.substring(i + 1, exp.lastIndexOf(")"))).eval();
                 i = exp.lastIndexOf(")");
             } else {
-                Calculator.calculate(currentStatus, prevOp, operand);
-                prevOp = letter;
+                Calculator.calculate(currentStatus, operand);
+                currentStatus.setOperator(letter);
                 operand = 0;
             }
             i++;
         }
-        Calculator.calculate(currentStatus, prevOp, operand);
+        Calculator.calculate(currentStatus, operand);
         return currentStatus.getRes();
     }
+
+
 }

@@ -1,8 +1,8 @@
 package org.example;
 
 public class Calculator {
-    public static void calculate(States states, char prevOp, long number) {
-        switch (prevOp) {
+    public static void calculate(States states, long number) {
+        switch (states.getOperator()) {
             case '+':
                 states.add(number);
                 break;
