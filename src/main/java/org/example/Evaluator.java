@@ -8,12 +8,11 @@ public class Evaluator {
 
     public long eval(String exp) {
         exp = exp.replaceAll(" ", "");
-        long operand = 0;
         ByteWorker byteWorker = new ByteWorker(exp);
         while (byteWorker.inWorkPlace()) {
-            operand = byteWorker.work(operand, currentStatus);
+            byteWorker.work(currentStatus);
         }
-        Calculator.calculate(currentStatus, operand);
+        Calculator.calculate(currentStatus, byteWorker.getOperand());
         return currentStatus.getRes();
     }
 
