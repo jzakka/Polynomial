@@ -1,13 +1,13 @@
 package org.example;
 
 public class Appender extends Worker {
-    public Appender(Progress progress) {
-        super("\\d", progress);
+    public Appender() {
+        super("\\d");
     }
 
     @Override
     public void work(String exp) {
-        char letter = exp.charAt(progress.getIdx());
-        progress.appendDigit(letter);
+        char letter = exp.charAt(Progress.getIdx());
+        Progress.appendDigit(letter);
     }
 }

@@ -1,14 +1,14 @@
 package org.example;
 
 public class Calculator extends Worker {
-    public Calculator( Progress progress) {
-        super("[\\+\\-\\*]", progress);
+    public Calculator() {
+        super("[\\+\\-\\*]");
     }
 
     @Override
     public void work(String exp) {
-        progress.calculate();
-        progress.setOperator(exp.charAt(progress.getIdx()));
-        progress.resetOperand();
+        Progress.calculate();
+        Progress.setOperator(exp.charAt(Progress.getIdx()));
+        Progress.resetOperand();
     }
 }

@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Stack;
+
 public class Progress {
     private int idx = 0;
     private long res = 0l;
@@ -7,56 +9,79 @@ public class Progress {
     private char operator = '+';
     private long operand = 0;
 
-    public long getRes() {
-        return res;
+    public static Progress currentStack;
+    private static Stack<Progress> statusStack = new Stack<>();
+
+    private Progress() {
     }
 
-    public void setOperator(char operator) {
-        this.operator = operator;
+    public static void createStack(){
+        statusStack.push(new Progress());
+        currentStack = statusStack.peek();
     }
 
-    public void setOperand(long operand) {
-        this.operand = operand;
+    public static void removeStack() {
+        statusStack.pop();
+        if (!statusStack.empty()) {
+            currentStack = statusStack.peek();
+        } else {
+            currentStack = null;
+        }
     }
 
-    public void resetOperand() {
+    public static long getRes() {
+        long result = currentStack.res;
+        removeStack();
+        return result;
+    }
+
+    public static void setOperator(char operator) {
+        currentStack.operator = operator;
+    }
+
+    public static void setOperand(long operand) {
+        currentStack.operand = operand;
+    }
+
+    public static void resetOperand() {
         setOperand(0);
     }
 
-    public void moveNext(){
-        idx++;
+    public static void moveNext(){
+        currentStack.idx++;
     }
 
-    public void jump(int dest){
-        idx = dest;
+    public static void jump(int dest){
+        currentStack.idx = dest;
     }
 
-    public int getIdx() {
-        return idx;
+    public static int getIdx() {
+        return currentStack.idx;
     }
 
-    public void appendDigit(char letter) {
-        operand *= 10;
-        operand += letter -'0';
+    public static void appendDigit(char letter) {
+        currentStack.operand *= 10;
+        currentStack.operand += letter -'0';
     }
 
-    public void add(){
-        res += operand;
-        prev = operand;
+    public static void add(){
+        currentStack.res += currentStack.operand;
+        currentStack.prev = currentStack.operand;
     }
 
-    public void sub(){
-        res -= operand;
-        prev = -operand;
+    public static void sub(){
+        currentStack.res -= currentStack.operand;
+        currentStack.prev = -currentStack.operand;
     }
 
-    public void multiply(){
-        res = res - prev + prev * operand;
-        prev *= operand;
+    public static void multiply(){
+        currentStack.res = currentStack.res - currentStack.prev +
+                currentStack.prev * currentStack.operand;
+        currentStack.prev *= currentStack.operand;
     }
 
-    public void calculate() {
-        switch (operator) {
+    public static void calculate() {
+        switch (currentStack.operator) {
             case '+':
                 add();
                 break;

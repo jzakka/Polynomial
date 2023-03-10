@@ -6,27 +6,25 @@ import java.util.List;
 public class Mediator {
     int idx = 0;
     String exp;
-    Progress status;
 
     List<Worker> workers = new ArrayList<>();
-    public Mediator(String exp, Progress status) {
+    public Mediator(String exp) {
         this.exp = exp;
-        this.status = status;
 
-        workers.add(new Appender(status));
-        workers.add(new ParenthesisCalculator(status));
-        workers.add(new Calculator(status));
+        workers.add(new Appender());
+        workers.add(new ParenthesisCalculator());
+        workers.add(new Calculator());
     }
 
     public void work(){
         for (Worker worker : workers) {
             worker.receiveWork(exp);
         }
-        status.moveNext();
+        Progress.moveNext();
         idx++;
     }
 
     boolean inWorkPlace(){
-        return status.getIdx() < exp.length();
+        return Progress.getIdx() < exp.length();
     }
 }
