@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EvaluatorTest {
     class Calc{
         public static long run(String exp){
-            return new Evaluator(exp).eval();
+            return new Evaluator().eval(exp);
         }
     }
     @Test
@@ -20,42 +20,50 @@ class EvaluatorTest {
     }
     @Test
     void test1() {
-        assertThat(new Evaluator("0+1").eval()).isEqualTo(1);
+        String exp = "0+1";
+        assertThat(new Evaluator().eval(exp)).isEqualTo(1);
     }
 
     @Test
     void test2() {
-        assertThat(new Evaluator("7 + 3").eval()).isEqualTo(10);
+        String exp = "7 + 3";
+        assertThat(new Evaluator().eval(exp)).isEqualTo(10);
     }
 
     @Test
     void test3() {
-        assertThat(new Evaluator(" 8+  9 +12").eval()).isEqualTo(29);
+        String exp = " 8+  9 +12";
+        assertThat(new Evaluator().eval(exp)).isEqualTo(29);
     }
 
     @Test
     void test4() {
-        assertThat(new Evaluator(" 8 - 6").eval()).isEqualTo(2);
+        String exp = " 8 - 6";
+        assertThat(new Evaluator().eval(" 8 - 6")).isEqualTo(2);
     }
 
     @Test
     void test5(){
-        assertThat(new Evaluator("4 + 6*2").eval()).isEqualTo(16);
+        String exp = "4 + 6*2";
+        assertThat(new Evaluator().eval(exp)).isEqualTo(16);
     }
 
     @Test
     void test6(){
-        assertThat(new Evaluator("2*2* 2*3 + 3 - 7*8").eval()).isEqualTo(-29);
+        String exp = "2*2* 2*3 + 3 - 7*8";
+        assertThat(new Evaluator().eval(exp)).isEqualTo(-29);
     }
 
     @Test
     void test7(){
-        assertThat(new Evaluator("1 + 2+(3*(8+2)) -2").eval()).isEqualTo(31);
+        String exp = "1 + 2+(3*(8+2)) -2";
+        assertThat(new Evaluator().eval(exp)).isEqualTo(31);
     }
 
     @Test
     void test8(){
-        assertThat(new Evaluator("1004 - ((7-9)*9 + 225-9*8)*1").eval()).isEqualTo(869);
+        String exp = "1004 - ((7-9)*9 + 225-9*8)*1";
+        assertThat(new Evaluator().eval(exp)).isEqualTo(869);
     }
 
     // 1004   - (-18 + 225 - 72) = 1004 -(225 - 90) = 1004 - 135 = 869

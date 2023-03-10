@@ -1,14 +1,13 @@
 package org.example;
 
 public class Evaluator {
-    String exp;
     States currentStatus;
-    public Evaluator(String exp) {
-        this.exp = exp.replaceAll(" ", "");
+    public Evaluator() {
         this.currentStatus  = new States();;
     }
 
-    public long eval() {
+    public long eval(String exp) {
+        exp = exp.replaceAll(" ", "");
         long operand = 0;
         ByteWorker byteWorker = new ByteWorker(exp);
         while (byteWorker.inWorkPlace()) {

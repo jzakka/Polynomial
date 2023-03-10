@@ -14,7 +14,7 @@ public class ByteWorker{
             operand *= 10;
             operand += letter-'0';
         } else if (letter == '(') {
-            operand= new Evaluator(exp.substring(idx + 1, exp.lastIndexOf(")"))).eval();
+            operand= new Evaluator().eval(exp.substring(idx + 1, exp.lastIndexOf(")")));
             idx = exp.lastIndexOf(")");
         } else {
             Calculator.calculate(states, operand);
