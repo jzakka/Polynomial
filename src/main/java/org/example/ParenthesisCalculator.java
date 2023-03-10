@@ -7,8 +7,8 @@ public class ParenthesisCalculator extends Worker {
     }
 
     @Override
-    public void work(String exp) {
-        Progress.setOperand(new Evaluator().eval(exp.substring(Progress.getIdx() + 1, exp.lastIndexOf(")"))));
-        Progress.jump(exp.lastIndexOf(")"));
+    public void work() {
+        Progress.setOperand(new Evaluator().eval(Progress.extractParenthesis()));
+        Progress.jump();
     }
 }

@@ -6,8 +6,7 @@ public class Appender extends Worker {
     }
 
     @Override
-    public void work(String exp) {
-        char letter = exp.charAt(Progress.getIdx());
-        Progress.appendDigit(letter);
+    public void work() {
+        Progress.appendDigit();
     }
 }

@@ -6,9 +6,9 @@ public class Calculator extends Worker {
     }
 
     @Override
-    public void work(String exp) {
+    public void work() {
         Progress.calculate();
-        Progress.setOperator(exp.charAt(Progress.getIdx()));
+        Progress.renewOperator();
         Progress.resetOperand();
     }
 }

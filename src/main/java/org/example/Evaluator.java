@@ -1,14 +1,15 @@
 package org.example;
 
 public class Evaluator {
-    Mediator byteWorker;
+    Mediator mediator;
     public Evaluator() {}
 
     public long eval(String exp) {
-        Progress.createStack();
-        byteWorker = new Mediator(exp.replaceAll(" ", ""));
-        while (byteWorker.inWorkPlace()) {
-            byteWorker.work();
+        exp = exp.replaceAll(" ", "");
+        Progress.createStack(exp);
+        mediator = new Mediator();
+        while (Progress.inExpression()) {
+            mediator.mediate();
         }
         Progress.calculate();
         return Progress.getRes();

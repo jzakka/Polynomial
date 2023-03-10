@@ -7,12 +7,11 @@ public abstract class Worker {
         this.conditionalRegex = conditionalRegex;
     }
 
-    public void receiveWork(String exp){
-        char letter = exp.charAt(Progress.getIdx());
-        if (String.valueOf(letter).matches(conditionalRegex)) {
-            work(exp);
+    public void receiveWork(){
+        if (String.valueOf(Progress.getCurrentDigit()).matches(conditionalRegex)) {
+            work();
         }
     }
 
-    public abstract void work(String exp);
+    public abstract void work();
 }

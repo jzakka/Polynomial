@@ -1,8 +1,11 @@
 package org.example;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 public class Progress {
+    private String exp;
     private int idx = 0;
     private long res = 0l;
     private long prev = 0l;
@@ -12,11 +15,20 @@ public class Progress {
     public static Progress currentStack;
     private static Stack<Progress> statusStack = new Stack<>();
 
-    private Progress() {
+    private static Map<Character, Runnable> operations = new HashMap<>();
+
+    static {
+        operations.put('+', Progress::add);
+        operations.put('-', Progress::sub);
+        operations.put('*', Progress::mul);
     }
 
-    public static void createStack(){
-        statusStack.push(new Progress());
+    private Progress(String exp) {
+        this.exp = exp;
+    }
+
+    public static void createStack(String exp){
+        statusStack.push(new Progress(exp));
         currentStack = statusStack.peek();
     }
 
@@ -29,14 +41,26 @@ public class Progress {
         }
     }
 
+    public static String getExpression() {
+        return currentStack.exp;
+    }
+
+    public static Character getCurrentDigit() {
+        return getExpression().charAt(getIdx());
+    }
+
+    public static boolean inExpression(){
+        return currentStack.idx < getExpression().length();
+    }
+
     public static long getRes() {
         long result = currentStack.res;
         removeStack();
         return result;
     }
 
-    public static void setOperator(char operator) {
-        currentStack.operator = operator;
+    public static void renewOperator() {
+        currentStack.operator = getExpression().charAt(getIdx());
     }
 
     public static void setOperand(long operand) {
@@ -51,15 +75,24 @@ public class Progress {
         currentStack.idx++;
     }
 
-    public static void jump(int dest){
-        currentStack.idx = dest;
+    public static String extractParenthesis(){
+        return getExpression().substring(Progress.getIdx() + 1, lastIndexOfRightParenthesis());
+    }
+
+    public static void jump() {
+        currentStack.idx = lastIndexOfRightParenthesis();
+    }
+
+    public static int lastIndexOfRightParenthesis(){
+        return getExpression().lastIndexOf(")");
     }
 
     public static int getIdx() {
         return currentStack.idx;
     }
 
-    public static void appendDigit(char letter) {
+    public static void appendDigit() {
+        char letter = getExpression().charAt(currentStack.idx);
         currentStack.operand *= 10;
         currentStack.operand += letter -'0';
     }
@@ -74,25 +107,13 @@ public class Progress {
         currentStack.prev = -currentStack.operand;
     }
 
-    public static void multiply(){
+    public static void mul(){
         currentStack.res = currentStack.res - currentStack.prev +
                 currentStack.prev * currentStack.operand;
         currentStack.prev *= currentStack.operand;
     }
 
     public static void calculate() {
-        switch (currentStack.operator) {
-            case '+':
-                add();
-                break;
-            case '-':
-                sub();
-                break;
-            case '*':
-                multiply();
-                break;
-            default:
-                throw new RuntimeException();
-        }
+        operations.get(currentStack.operator).run();
     }
 }
