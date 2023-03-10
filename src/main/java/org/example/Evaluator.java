@@ -2,19 +2,17 @@ package org.example;
 
 public class Evaluator {
     States currentStatus;
+    ByteWorker byteWorker;
     public Evaluator() {
         this.currentStatus  = new States();;
     }
 
     public long eval(String exp) {
-        exp = exp.replaceAll(" ", "");
-        ByteWorker byteWorker = new ByteWorker(exp);
+        byteWorker = new ByteWorker(exp.replaceAll(" ", ""));
         while (byteWorker.inWorkPlace()) {
-            byteWorker.work(currentStatus);
+            byteWorker.makeOperand(currentStatus);
         }
-        Calculator.calculate(currentStatus, byteWorker.getOperand());
+        Calculator.calculate(currentStatus);
         return currentStatus.getRes();
     }
-
-
 }

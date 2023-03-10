@@ -1,16 +1,16 @@
 package org.example;
 
 public class Calculator {
-    public static void calculate(States states, long number) {
+    public static void calculate(States states) {
         switch (states.getOperator()) {
             case '+':
-                states.add(number);
+                states.add();
                 break;
             case '-':
-                states.sub(number);
+                states.sub();
                 break;
             case '*':
-                states.multiply(number);
+                states.multiply();
                 break;
             default:
                 throw new RuntimeException();

@@ -4,6 +4,7 @@ public class States {
     private long res = 0l;
     private long prev = 0l;
     private char operator = '+';
+    private long operand = 0;
 
     public long getRes() {
         return res;
@@ -17,18 +18,35 @@ public class States {
         this.operator = operator;
     }
 
-    public void add(long number){
-        res += number;
-        prev = number;
+    public long getOperand() {
+        return operand;
     }
 
-    public void sub(long number){
-        res -= number;
-        prev = -number;
+    public void setOperand(long operand) {
+        this.operand = operand;
     }
 
-    public void multiply(long number){
-        res = res - prev + prev * number;
-        prev *= number;
+    public void resetOperand() {
+        setOperand(0);
+    }
+
+    public void appendDigit(char letter) {
+        operand *= 10;
+        operand += letter -'0';
+    }
+
+    public void add(){
+        res += operand;
+        prev = operand;
+    }
+
+    public void sub(){
+        res -= operand;
+        prev = -operand;
+    }
+
+    public void multiply(){
+        res = res - prev + prev * operand;
+        prev *= operand;
     }
 }

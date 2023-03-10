@@ -2,37 +2,29 @@ package org.example;
 
 public class ByteWorker{
     int idx = 0;
-    long operand = 0;
     String exp;
 
     public ByteWorker(String exp) {
         this.exp = exp;
     }
 
-    public long getOperand() {
-        return operand;
-    }
-
-    public long work(States states){
+    public void makeOperand(States states){
         char letter = exp.charAt(idx);
         if (Character.isDigit(letter)) {
-            operand = appendDigit(operand, letter);
+            states.appendDigit(letter);
         } else if (letter == '(') {
-            operand= calculateParenthesis();
-            idx = exp.lastIndexOf(")");
+            states.setOperand(calculateParenthesis());
+            jumpToEndOfParenthesis();
         } else {
-            Calculator.calculate(states, operand);
+            Calculator.calculate(states);
             states.setOperator(letter);
-            operand = 0;
+            states.resetOperand();
         }
         idx++;
-        return operand;
     }
 
-    private long appendDigit(long operand, char letter) {
-        operand *= 10;
-        operand += letter -'0';
-        return operand;
+    private void jumpToEndOfParenthesis() {
+        idx = exp.lastIndexOf(")");
     }
 
     private long calculateParenthesis() {
