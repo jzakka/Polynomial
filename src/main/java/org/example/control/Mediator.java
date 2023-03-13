@@ -1,10 +1,7 @@
 package org.example.control;
 
 import org.example.*;
-import org.example.work.Appender;
-import org.example.work.Calculator;
-import org.example.work.ParenthesisCalculator;
-import org.example.work.Worker;
+import org.example.work.*;
 
 import java.util.*;
 

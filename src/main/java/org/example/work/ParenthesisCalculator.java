@@ -1,7 +1,6 @@
 package org.example.work;
 
-import org.example.Evaluator;
-import org.example.Progress;
+import org.example.*;
 
 public class ParenthesisCalculator extends Worker {
 

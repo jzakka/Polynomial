@@ -107,8 +107,7 @@ public class Progress {
 
     public static void mul(){
         //Undo previous operation and add multiplied value
-        currentStatus.res = currentStatus.res - currentStatus.prev +
-                currentStatus.prev * currentStatus.operand;
+        currentStatus.res = currentStatus.res - currentStatus.prev + currentStatus.prev * currentStatus.operand;
         currentStatus.prev *= currentStatus.operand;
     }
 

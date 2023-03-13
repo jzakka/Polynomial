@@ -18,6 +18,19 @@ class EvaluatorTest {
     void t7() {
         assertThat(Calc.run("10 + 20 + 30")).isEqualTo(60);
     }
+
+    @Test
+    @DisplayName("10 * 20 - 20 * 30 == -400")
+    void t18(){
+        assertThat(Calc.run("10 * 20 - 20 * 30 ")).isEqualTo(-400);
+    }
+
+    @Test
+    @DisplayName("20 + 10 + 5 * 2 == 40")
+    void t16() {
+        assertThat(Calc.run("20 + 10 + 5 * 2 ")).isEqualTo(40);
+    }
+
     @Test
     void test1() {
         String exp = "0+1";
