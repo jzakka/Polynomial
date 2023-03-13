@@ -1,4 +1,6 @@
-package org.example;
+package org.example.work;
+
+import org.example.Progress;
 
 public class Appender extends Worker {
     public Appender() {

@@ -1,18 +1,18 @@
 package org.example;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 public class Progress {
     private String exp;
     private int idx = 0;
     private long res = 0l;
+
+    //Previous calculated degree's value;
     private long prev = 0l;
     private char operator = '+';
     private long operand = 0;
 
-    public static Progress currentStack;
+    public static Progress currentStatus;
     private static Stack<Progress> statusStack = new Stack<>();
 
     private static Map<Character, Runnable> operations = new HashMap<>();
@@ -29,20 +29,18 @@ public class Progress {
 
     public static void createStack(String exp){
         statusStack.push(new Progress(exp));
-        currentStack = statusStack.peek();
+        currentStatus = statusStack.peek();
     }
 
     public static void removeStack() {
         statusStack.pop();
         if (!statusStack.empty()) {
-            currentStack = statusStack.peek();
-        } else {
-            currentStack = null;
+            currentStatus = statusStack.peek();
         }
     }
 
     public static String getExpression() {
-        return currentStack.exp;
+        return currentStatus.exp;
     }
 
     public static Character getCurrentDigit() {
@@ -50,21 +48,21 @@ public class Progress {
     }
 
     public static boolean inExpression(){
-        return currentStack.idx < getExpression().length();
+        return currentStatus.idx < getExpression().length();
     }
 
     public static long getRes() {
-        long result = currentStack.res;
+        long result = currentStatus.res;
         removeStack();
         return result;
     }
 
     public static void renewOperator() {
-        currentStack.operator = getExpression().charAt(getIdx());
+        currentStatus.operator = getExpression().charAt(getIdx());
     }
 
     public static void setOperand(long operand) {
-        currentStack.operand = operand;
+        currentStatus.operand = operand;
     }
 
     public static void resetOperand() {
@@ -72,7 +70,7 @@ public class Progress {
     }
 
     public static void moveNext(){
-        currentStack.idx++;
+        currentStatus.idx++;
     }
 
     public static String extractParenthesis(){
@@ -80,7 +78,7 @@ public class Progress {
     }
 
     public static void jump() {
-        currentStack.idx = lastIndexOfRightParenthesis();
+        currentStatus.idx = lastIndexOfRightParenthesis();
     }
 
     public static int lastIndexOfRightParenthesis(){
@@ -88,32 +86,33 @@ public class Progress {
     }
 
     public static int getIdx() {
-        return currentStack.idx;
+        return currentStatus.idx;
     }
 
     public static void appendDigit() {
-        char letter = getExpression().charAt(currentStack.idx);
-        currentStack.operand *= 10;
-        currentStack.operand += letter -'0';
+        char letter = getExpression().charAt(currentStatus.idx);
+        currentStatus.operand *= 10;
+        currentStatus.operand += letter -'0';
     }
 
     public static void add(){
-        currentStack.res += currentStack.operand;
-        currentStack.prev = currentStack.operand;
+        currentStatus.res += currentStatus.operand;
+        currentStatus.prev = currentStatus.operand;
     }
 
     public static void sub(){
-        currentStack.res -= currentStack.operand;
-        currentStack.prev = -currentStack.operand;
+        currentStatus.res -= currentStatus.operand;
+        currentStatus.prev = -currentStatus.operand;
     }
 
     public static void mul(){
-        currentStack.res = currentStack.res - currentStack.prev +
-                currentStack.prev * currentStack.operand;
-        currentStack.prev *= currentStack.operand;
+        //Undo previous operation and add multiplied value
+        currentStatus.res = currentStatus.res - currentStatus.prev +
+                currentStatus.prev * currentStatus.operand;
+        currentStatus.prev *= currentStatus.operand;
     }
 
-    public static void calculate() {
-        operations.get(currentStack.operator).run();
+    public static void operate() {
+        operations.get(currentStatus.operator).run();
     }
 }

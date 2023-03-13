@@ -1,4 +1,6 @@
-package org.example;
+package org.example.work;
+
+import org.example.Progress;
 
 public abstract class Worker {
     String conditionalRegex;

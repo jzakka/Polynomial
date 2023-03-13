@@ -1,4 +1,6 @@
-package org.example;
+package org.example.work;
+
+import org.example.Progress;
 
 public class Calculator extends Worker {
     public Calculator() {
@@ -7,7 +9,7 @@ public class Calculator extends Worker {
 
     @Override
     public void work() {
-        Progress.calculate();
+        Progress.operate();
         Progress.renewOperator();
         Progress.resetOperand();
     }

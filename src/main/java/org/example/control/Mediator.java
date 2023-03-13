@@ -1,7 +1,12 @@
-package org.example;
+package org.example.control;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.example.*;
+import org.example.work.Appender;
+import org.example.work.Calculator;
+import org.example.work.ParenthesisCalculator;
+import org.example.work.Worker;
+
+import java.util.*;
 
 public class Mediator {
     List<Worker> workers = new ArrayList<>();
