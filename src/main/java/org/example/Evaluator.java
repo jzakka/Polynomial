@@ -14,6 +14,7 @@ public class Evaluator {
 
         while (Progress.inExpression()) {
             mediator.mediate();
+            Progress.moveNext();
         }
         Progress.operate();
 

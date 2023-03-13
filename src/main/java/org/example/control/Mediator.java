@@ -17,6 +17,5 @@ public class Mediator {
         for (Worker worker : workers) {
             worker.receiveWork();
         }
-        Progress.moveNext();
     }
 }
