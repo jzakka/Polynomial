@@ -1,16 +1,14 @@
 package org.example;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 class EvaluatorTest {
     class Calc{
         public static long run(String exp){
-            return new Evaluator().eval(exp);
+            return Evaluation.eval(exp);
         }
     }
     @Test
@@ -58,50 +56,50 @@ class EvaluatorTest {
     @Test
     void test1() {
         String exp = "0+1";
-        assertThat(new Evaluator().eval(exp)).isEqualTo(1);
+        assertThat(Evaluation.eval(exp)).isEqualTo(1);
     }
 
     @Test
     void test2() {
         String exp = "7 + 3";
-        assertThat(new Evaluator().eval(exp)).isEqualTo(10);
+        assertThat(Evaluation.eval(exp)).isEqualTo(10);
     }
 
     @Test
     void test3() {
         String exp = " 8+  9 +12";
-        assertThat(new Evaluator().eval(exp)).isEqualTo(29);
+        assertThat(Evaluation.eval(exp)).isEqualTo(29);
     }
 
     @Test
     void test4() {
         String exp = " 8 - 6";
-        assertThat(new Evaluator().eval(" 8 - 6")).isEqualTo(2);
+        assertThat(Evaluation.eval(" 8 - 6")).isEqualTo(2);
     }
 
     @Test
     void test5(){
         String exp = "4 + 6*2";
-        assertThat(new Evaluator().eval(exp)).isEqualTo(16);
+        assertThat(Evaluation.eval(exp)).isEqualTo(16);
     }
 
     @Test
     void test6(){
         String exp = "2*2* 2*3 + 3 - 7*8";
-        assertThat(new Evaluator().eval(exp)).isEqualTo(-29);
+        assertThat(Evaluation.eval(exp)).isEqualTo(-29);
     }
 
     @Test
     void test7(){
         String exp = "1 + 2+(3*(8+2)) -2";
-        assertThat(new Evaluator().eval(exp)).isEqualTo(31);
+        assertThat(Evaluation.eval(exp)).isEqualTo(31);
     }
 
     @Test
     @DisplayName("1004 - ((7-9)*9 + 225-9*8)*1 == 869")
     void test8(){
         String exp = "1004 - ((7-9)*9 + 225-9*8)*1";
-        assertThat(new Evaluator().eval(exp)).isEqualTo(869);
+        assertThat(Evaluation.eval(exp)).isEqualTo(869);
     }
 
     // 1004   - (-18 + 225 - 72) = 1004 -(225 - 90) = 1004 - 135 = 869

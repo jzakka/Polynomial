@@ -2,8 +2,8 @@ package org.example;
 
 import org.example.control.Mediator;
 
-public class Evaluator {
-    public long eval(String exp) {
+public class Evaluation {
+    public static long eval(String exp) {
         exp = exp.replaceAll(" ", "");
         Register.createStack(exp);
 
