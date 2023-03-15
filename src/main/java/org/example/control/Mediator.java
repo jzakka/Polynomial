@@ -6,14 +6,14 @@ import org.example.work.*;
 import java.util.*;
 
 public class Mediator {
-    List<Worker> workers = new ArrayList<>();
-    public Mediator() {
+    private static List<Worker> workers = new ArrayList<>();
+    static {
         workers.add(new Appender());
         workers.add(new ParenthesisCalculator());
         workers.add(new Calculator());
     }
 
-    public void mediate(){
+    public static void mediate(){
         for (Worker worker : workers) {
             worker.receiveWork();
         }
