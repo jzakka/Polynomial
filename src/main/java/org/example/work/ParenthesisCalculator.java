@@ -10,7 +10,7 @@ public class ParenthesisCalculator extends Worker {
 
     @Override
     public void work() {
-        Progress.setOperand(new Evaluator().eval(Progress.extractParenthesis()));
-        Progress.jump();
+        Register.setOperand(new Evaluator().eval(Register.extractParenthesis()));
+        Register.jump();
     }
 }

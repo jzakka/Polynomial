@@ -1,6 +1,6 @@
 package org.example.work;
 
-import org.example.Progress;
+import org.example.Register;
 
 public class Calculator extends Worker {
     public Calculator() {
@@ -9,8 +9,8 @@ public class Calculator extends Worker {
 
     @Override
     public void work() {
-        Progress.operate();
-        Progress.renewOperator();
-        Progress.resetOperand();
+        Register.operate();
+        Register.renewOperator();
+        Register.resetOperand();
     }
 }

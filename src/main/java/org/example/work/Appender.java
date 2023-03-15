@@ -1,6 +1,6 @@
 package org.example.work;
 
-import org.example.Progress;
+import org.example.Register;
 
 public class Appender extends Worker {
     public Appender() {
@@ -9,6 +9,6 @@ public class Appender extends Worker {
 
     @Override
     public void work() {
-        Progress.appendDigit();
+        Register.appendDigit();
     }
 }

@@ -1,6 +1,6 @@
 package org.example.work;
 
-import org.example.Progress;
+import org.example.Register;
 
 public abstract class Worker {
     String conditionalRegex;
@@ -10,7 +10,7 @@ public abstract class Worker {
     }
 
     public void receiveWork(){
-        if (String.valueOf(Progress.getCurrentDigit()).matches(conditionalRegex)) {
+        if (String.valueOf(Register.getCurrentDigit()).matches(conditionalRegex)) {
             work();
         }
     }

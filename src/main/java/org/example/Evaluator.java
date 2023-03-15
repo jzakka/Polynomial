@@ -10,14 +10,14 @@ public class Evaluator {
 
     public long eval(String exp) {
         exp = exp.replaceAll(" ", "");
-        Progress.createStack(exp);
+        Register.createStack(exp);
 
-        while (Progress.inExpression()) {
+        while (Register.inExpression()) {
             mediator.mediate();
-            Progress.moveNext();
+            Register.moveNext();
         }
-        Progress.operate();
+        Register.operate();
 
-        return Progress.getRes();
+        return Register.getRes();
     }
 }

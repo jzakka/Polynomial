@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.*;
 
-public class Progress {
+public class Register {
     private String exp;
     private int idx = 0;
     private long res = 0l;
@@ -12,23 +12,23 @@ public class Progress {
     private char operator = '+';
     private long operand = 0;
 
-    public static Progress currentStatus;
-    private static Stack<Progress> statusStack = new Stack<>();
+    public static Register currentStatus;
+    private static Stack<Register> statusStack = new Stack<>();
 
     private static Map<Character, Runnable> operations = new HashMap<>();
 
     static {
-        operations.put('+', Progress::add);
-        operations.put('-', Progress::sub);
-        operations.put('*', Progress::mul);
+        operations.put('+', Register::add);
+        operations.put('-', Register::sub);
+        operations.put('*', Register::mul);
     }
 
-    private Progress(String exp) {
+    private Register(String exp) {
         this.exp = exp;
     }
 
     public static void createStack(String exp){
-        statusStack.push(new Progress(exp));
+        statusStack.push(new Register(exp));
         currentStatus = statusStack.peek();
     }
 
@@ -74,7 +74,7 @@ public class Progress {
     }
 
     public static String extractParenthesis(){
-        return getExpression().substring(Progress.getIdx() + 1, lastIndexOfRightParenthesis());
+        return getExpression().substring(Register.getIdx() + 1, lastIndexOfRightParenthesis());
     }
 
     public static void jump() {

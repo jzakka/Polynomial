@@ -32,6 +32,30 @@ class EvaluatorTest {
     }
 
     @Test
+    @DisplayName("(10 + 20) == 30")
+    void t19() {
+        assertThat(Calc.run("(10 + 20)")).isEqualTo(30);
+    }
+
+    @Test
+    @DisplayName("(20 + 20)*  20 == 800")
+    void t20() {
+        assertThat(Calc.run("(20 + 20)*  20")).isEqualTo(800);
+    }
+
+    @Test
+    @DisplayName("(10 + 20) * 3 == 90")
+    void t21() {
+        assertThat(Calc.run("(10 + 20) * 3")).isEqualTo(90);
+    }
+
+    @Test
+    @DisplayName("10 + (10 + 5) == 25")
+    void t24() {
+        assertThat(Calc.run("10 + (10 + 5)")).isEqualTo(25);
+    }
+
+    @Test
     void test1() {
         String exp = "0+1";
         assertThat(new Evaluator().eval(exp)).isEqualTo(1);
@@ -74,6 +98,7 @@ class EvaluatorTest {
     }
 
     @Test
+    @DisplayName("1004 - ((7-9)*9 + 225-9*8)*1 == 869")
     void test8(){
         String exp = "1004 - ((7-9)*9 + 225-9*8)*1";
         assertThat(new Evaluator().eval(exp)).isEqualTo(869);
