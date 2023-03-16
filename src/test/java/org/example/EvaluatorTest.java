@@ -101,6 +101,11 @@ class EvaluatorTest {
         String exp = "1004 - ((7-9)*9 + 225-9*8)*1";
         assertThat(Evaluation.eval(exp)).isEqualTo(869);
     }
-
     // 1004   - (-18 + 225 - 72) = 1004 -(225 - 90) = 1004 - 135 = 869
+
+    @Test
+    @DisplayName("-(10 + 5) == -15")
+    void t25() {
+        assertThat(Calc.run("-(10 + 5)")).isEqualTo(-15);
+    }
 }

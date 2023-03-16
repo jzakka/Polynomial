@@ -69,7 +69,7 @@ public class Register {
         setOperand(0);
     }
 
-    public static void moveNext(){
+    public static void pointNext(){
         currentStatus.idx++;
     }
 

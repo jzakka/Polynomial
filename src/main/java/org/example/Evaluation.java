@@ -9,7 +9,7 @@ public class Evaluation {
 
         while (Register.inExpression()) {
             Mediator.mediate();
-            Register.moveNext();
+            Register.pointNext();
         }
         Register.operate();
 
