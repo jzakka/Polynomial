@@ -9,6 +9,10 @@ public class Calculator extends Worker {
 
     @Override
     public void work() {
+        if (Register.signMinus()) {
+            Register.negate();
+            return;
+        }
         Register.operate();
         Register.renewOperator();
         Register.resetOperand();

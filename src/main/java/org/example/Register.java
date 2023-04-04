@@ -11,6 +11,7 @@ public class Register {
     private long prev = 0l;
     private char operator = '+';
     private long operand = 0;
+    private boolean negateOperand = false;
     private int jumpIdx;
     private static Stack<Integer> parenthesisPos = new Stack<>();
 
@@ -21,7 +22,7 @@ public class Register {
 
     static {
         operations.put('+', Register::add);
-        operations.put('-', Register::sub);
+        operations.put('-', Register::minus);
         operations.put('*', Register::mul);
     }
 
@@ -118,20 +119,39 @@ public class Register {
     public static void add(){
         currentStatus.res += currentStatus.operand;
         currentStatus.prev = currentStatus.operand;
+        currentStatus.negateOperand = false;
     }
 
-    public static void sub(){
+    public static void minus(){
+        sub();
+    }
+
+    private static void sub() {
         currentStatus.res -= currentStatus.operand;
         currentStatus.prev = -currentStatus.operand;
+        currentStatus.negateOperand = false;
     }
 
     public static void mul(){
         //Undo previous operation and add multiplied value
         currentStatus.res = currentStatus.res - currentStatus.prev + currentStatus.prev * currentStatus.operand;
         currentStatus.prev *= currentStatus.operand;
+        currentStatus.negateOperand = false;
     }
 
     public static void operate() {
+        if (currentStatus.negateOperand) {
+            currentStatus.operand *= -1;
+        }
         operations.get(currentStatus.operator).run();
+    }
+
+    public static boolean signMinus() {
+        return currentStatus.idx > 0 && "-+*".contains(String.valueOf(currentStatus.exp.charAt(currentStatus.idx - 1)));
+    }
+
+
+    public static void negate() {
+        currentStatus.negateOperand = true;
     }
 }
