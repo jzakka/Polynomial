@@ -108,4 +108,14 @@ class EvaluatorTest {
     void t25() {
         assertThat(Calc.run("-(10 + 5)")).isEqualTo(-15);
     }
+    @Test
+    @DisplayName("(20+70) - (30-20) == 80")
+    void myTest() {
+        assertThat(Calc.run("(20+70) - (30-20)")).isEqualTo(80);
+    }
+    @Test
+    @DisplayName("-(9 + 1) * -(8 + 2) == 100")
+    void t26() {
+        assertThat(Calc.run("-(9 + 1) * -(8 + 2)")).isEqualTo(100);
+    }
 }

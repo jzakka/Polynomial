@@ -11,6 +11,8 @@ public class Register {
     private long prev = 0l;
     private char operator = '+';
     private long operand = 0;
+    private int jumpIdx;
+    private static Stack<Integer> parenthesisPos = new Stack<>();
 
     public static Register currentStatus;
     private static Stack<Register> statusStack = new Stack<>();
@@ -43,6 +45,14 @@ public class Register {
         return currentStatus.exp;
     }
 
+    public static int getJumpIdx(){
+        return currentStatus.jumpIdx;
+    }
+
+    public static void setJumpIdx(int idx){
+        currentStatus.jumpIdx = idx;
+    }
+
     public static Character getCurrentDigit() {
         return getExpression().charAt(getIdx());
     }
@@ -73,16 +83,26 @@ public class Register {
         currentStatus.idx++;
     }
 
-    public static String extractParenthesis(){
-        return getExpression().substring(Register.getIdx() + 1, lastIndexOfRightParenthesis());
+    public static String extractParenthesis() {
+        Stack<Byte> pair = new Stack<>();
+        int i;
+        for (i = Register.getIdx(); i < getExpression().length(); i++) {
+            char digit = getExpression().charAt(i);
+            if (digit == '(') {
+                pair.push((byte) 1);
+            } else if (digit == ')') {
+                pair.pop();
+                if (pair.empty()) {
+                    break;
+                }
+            }
+        }
+        setJumpIdx(i);
+        return getExpression().substring(Register.getIdx() + 1, i);
     }
 
     public static void jump() {
-        currentStatus.idx = lastIndexOfRightParenthesis();
-    }
-
-    public static int lastIndexOfRightParenthesis(){
-        return getExpression().lastIndexOf(")");
+        currentStatus.idx = getJumpIdx();
     }
 
     public static int getIdx() {
